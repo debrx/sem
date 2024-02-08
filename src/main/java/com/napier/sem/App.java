@@ -95,9 +95,25 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT emp_no, first_name, last_name "
-                            + "FROM employees "
-                            + "WHERE emp_no = " + ID;
+                    "SELECT employees.emp_no, " +
+                            "employees.first_name, " +
+                            "employees.last_name, " +
+                            "titles.title AS job_title, " +
+                            "salaries.salary, " +
+                            "departments.dept_name AS department, " +
+                            "CONCAT(managers.first_name, ' ', managers.last_name) AS manager " +
+                            "FROM employees " +
+                            "JOIN titles ON employees.emp_no = titles.emp_no " +
+                            "JOIN salaries ON employees.emp_no = salaries.emp_no " +
+                            "JOIN dept_emp ON employees.emp_no = dept_emp.emp_no " +
+                            "JOIN departments ON dept_emp.dept_no = departments.dept_no " +
+                            "JOIN dept_manager ON departments.dept_no = dept_manager.dept_no " +
+                            "JOIN employees AS managers ON dept_manager.emp_no = managers.emp_no " +
+                            "AND employees.emp_no = " + ID + " " +
+                            "WHERE titles.to_date = '9999-01-01' " +
+                            "AND salaries.to_date = '9999-01-01' " +
+                            "AND dept_emp.to_date = '9999-01-01' " +
+                            "AND dept_manager.to_date = '9999-01-01' " ;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -108,6 +124,8 @@ public class App
                 emp.emp_no = rset.getInt("emp_no");
                 emp.first_name = rset.getString("first_name");
                 emp.last_name = rset.getString("last_name");
+                emp.title = rset.getString("title");
+                emp.dept_name = rset.getString("department");
                 return emp;
             }
             else
