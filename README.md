@@ -1,6 +1,6 @@
 ### Welcome
 
-#### During this semester we will learn more about git and explore Software Engineering Methods
+#### During this semester we will learn more about git and cry explore Software Engineering Methods
 
 
 * Master Build Status ![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/debrx/sem/main.yml?branch=master)
