@@ -113,7 +113,7 @@ public class App
                             "WHERE titles.to_date = '9999-01-01' " +
                             "AND salaries.to_date = '9999-01-01' " +
                             "AND dept_emp.to_date = '9999-01-01' " +
-                            "AND dept_manager.to_date = '9999-01-01' " ;
+                            "AND dept_manager.to_date = '9999-01-01' ;";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -124,8 +124,8 @@ public class App
                 emp.emp_no = rset.getInt("emp_no");
                 emp.first_name = rset.getString("first_name");
                 emp.last_name = rset.getString("last_name");
-                emp.title = rset.getString("title");
-                emp.dept_name = rset.getString("department");
+                emp.title = rset.getString("titles.title");
+                emp.dept_name = rset.getString("departments.dept_name");
                 return emp;
             }
             else
